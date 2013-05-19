@@ -11,6 +11,8 @@ namespace mcxNOW
 
         public decimal Balance { get; set; }
 
+        public decimal Incoming { get; set; }
+
         public string DepositAddress { get; set; }
     }
 }

@@ -133,15 +133,27 @@ namespace mcxNOW
             document.LoadHtml(response.Content);
 
             Regex balance = new Regex(@"^Balance: ([0-9]+\.[0-9]+) ([A-Z]{2,3})$");
+            Regex incoming = new Regex(@"^Incoming: ([0-9]+\.[0-9]+) ([A-Z]{2,3})$");
 
             List<Fund> funds = new List<Fund>();
             foreach (HtmlNode node in document.DocumentNode.SelectNodes(@"//div[@class='fundbox']"))
             {
-                Match balanceMatch = balance.Match(node.SelectSingleNode(@".//div[@class='fundboxbal']").InnerText.Trim());
-
+                HtmlNode balanceNode = node.SelectSingleNode(@".//div[@class='fundboxbal']");
+                Match balanceMatch = balance.Match(balanceNode.ChildNodes[balanceNode.ChildNodes.Count - 1].InnerText.Trim());
                 Fund fund = new Fund();
                 fund.Balance = Convert.ToDecimal(balanceMatch.Groups[1].Value, CultureInfo.InvariantCulture);
                 fund.Currency = Currency.FromString(balanceMatch.Groups[2].Value);
+
+                HtmlNode incomingNode = balanceNode.SelectSingleNode(@"./small");
+                if (incomingNode != null)
+                {
+                    fund.Incoming = Convert.ToDecimal(incoming.Match(incomingNode.InnerText).Groups[1].Value, CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    fund.Incoming = 0.0M;
+                }
+
                 HtmlNode depositNode = node.SelectSingleNode(@"./div[@class='fundrow']/b[2]");
                 fund.DepositAddress = depositNode != null ? depositNode.InnerText.Trim() : null;
                 funds.Add(fund);
