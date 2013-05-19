@@ -12,7 +12,7 @@ namespace mcxNOW
         public string Name { get; private set; }
         private int Value { get; set; }
 
-        public static readonly Currency MNC = new Currency(1, "MNC", "Mincoin");
+        public static readonly Currency MNC = new Currency(1, "MNC", "MinCoin");
         public static readonly Currency LTC = new Currency(2, "LTC", "Litecoin");
         public static readonly Currency SC = new Currency(3, "SC", "SolidCoin");
         public static readonly Currency DVC = new Currency(4, "DVC", "Devcoin");
