@@ -189,21 +189,22 @@ namespace mcxNOW
             Execute(request);
         }
 
-        public void Withdraw(Currency currency, decimal amount, string address, string password)
+        public void Withdraw(Currency currency, decimal amount, string address, string password = null)
         {
             RestRequest request = Post("withdraw.html", true);
 
             request.AddParameter("cur", currency.Code);
             request.AddParameter("amount", amount);
             request.AddParameter("address", address);
-            request.AddParameter("password", password);
+            request.AddParameter("password", Password(password));
 
             Execute(request);
         }
 
 
+        private string password;
 
-        public void Login(string username, string password)
+        public void Login(string username, string password, bool remember = false)
         {
             RestRequest request = Post("?login");
 
@@ -225,6 +226,26 @@ namespace mcxNOW
                 throw new AuthenticationFailed();
             }
             session = sessionCookie.Value;
+
+            if (remember)
+            {
+                this.password = password;
+            }
+        }
+
+        private string Password(string password)
+        {
+            if (password == null && this.password == null)
+            {
+                throw new ArgumentNullException("Remember password on login or provide password");
+            }
+
+            if (password == null)
+            {
+                password = this.password;
+            }
+
+            return password;
         }
 
 
