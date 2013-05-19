@@ -1,10 +1,13 @@
-﻿using RestSharp;
+﻿using HtmlAgilityPack;
+using RestSharp;
 using RestSharp.Deserializers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace mcxNOW
@@ -116,7 +119,47 @@ namespace mcxNOW
             request.AddParameter("t", text);
 
             Execute(request);
-        }        
+        }
+
+
+
+        public List<Fund> Funds()
+        {
+            RestRequest request = Get("user.html", true);
+
+            IRestResponse response = Execute(request);
+
+            HtmlDocument document = new HtmlDocument();
+            document.LoadHtml(response.Content);
+
+            Regex balance = new Regex(@"^Balance: ([0-9]+\.[0-9]+) ([A-Z]{2,3})$");
+
+            List<Fund> funds = new List<Fund>();
+            foreach (HtmlNode node in document.DocumentNode.SelectNodes(@"//div[@class='fundbox']"))
+            {
+                Match balanceMatch = balance.Match(node.SelectSingleNode(@".//div[@class='fundboxbal']").InnerText.Trim());
+
+                Fund fund = new Fund();
+                fund.Balance = Convert.ToDecimal(balanceMatch.Groups[1].Value, CultureInfo.InvariantCulture);
+                fund.Currency = Currency.FromString(balanceMatch.Groups[2].Value);
+                HtmlNode depositNode = node.SelectSingleNode(@"./div[@class='fundrow']/b[2]");
+                fund.DepositAddress = depositNode != null ? depositNode.InnerText.Trim() : null;
+                funds.Add(fund);
+            }
+
+            return funds;
+        }
+
+        public void RequestDepositAddress(Currency currency)
+        {
+            RestRequest request = Get("action?getaddress", true);
+
+            request.AddParameter("sk", secretKey);
+            request.AddParameter("cur", currency.Code);
+
+            Execute(request);
+        }
+
 
 
         public void Login(string username, string password)
