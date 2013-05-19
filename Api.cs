@@ -189,6 +189,18 @@ namespace mcxNOW
             Execute(request);
         }
 
+        public void Withdraw(Currency currency, decimal amount, string address, string password)
+        {
+            RestRequest request = Post("withdraw.html", true);
+
+            request.AddParameter("cur", currency.Code);
+            request.AddParameter("amount", amount);
+            request.AddParameter("address", address);
+            request.AddParameter("password", password);
+
+            Execute(request);
+        }
+
 
 
         public void Login(string username, string password)
