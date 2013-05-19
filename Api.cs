@@ -136,6 +136,7 @@ namespace mcxNOW
             Regex incoming = new Regex(@"^Incoming: ([0-9]+\.[0-9]+) ([A-Z]{2,3})$");
 
             List<Fund> funds = new List<Fund>();
+            Dictionary<string, Fund> map = new Dictionary<string, Fund>();
             foreach (HtmlNode node in document.DocumentNode.SelectNodes(@"//div[@class='fundbox']"))
             {
                 HtmlNode balanceNode = node.SelectSingleNode(@".//div[@class='fundboxbal']");
@@ -157,6 +158,22 @@ namespace mcxNOW
                 HtmlNode depositNode = node.SelectSingleNode(@"./div[@class='fundrow']/b[2]");
                 fund.DepositAddress = depositNode != null ? depositNode.InnerText.Trim() : null;
                 funds.Add(fund);
+                map.Add(fund.Currency.Name, fund);
+            }
+
+            Regex name = new Regex(@"^[A-Za-z]+\b");
+            Regex amount = new Regex(@"^([0-9]+\.[0-9]+) ([A-Z]{2,3})$");
+            foreach (HtmlNode node in document.DocumentNode.SelectNodes(@"//div[@id='main']/div/div[2]/div[not(@class)][not(@id)]"))
+            {
+                Match nameMatch = name.Match(node.InnerText);
+                if (nameMatch.Success && map.ContainsKey(nameMatch.Value))
+                {
+                    HtmlNodeCollection valuesNodes = node.SelectNodes(@"./b");
+                    Fund fund = map[nameMatch.Value];
+                    fund.MinimumDeposit = Convert.ToDecimal(amount.Match(valuesNodes[0].InnerText.Trim()).Groups[1].Value, CultureInfo.InvariantCulture);
+                    fund.DepositConfirmations = Convert.ToInt32(valuesNodes[2].InnerText.Trim(), CultureInfo.InvariantCulture);
+                    fund.WithdrawFee = Convert.ToDecimal(amount.Match(valuesNodes[1].InnerText.Trim()).Groups[1].Value, CultureInfo.InvariantCulture);
+                }
             }
 
             return funds;

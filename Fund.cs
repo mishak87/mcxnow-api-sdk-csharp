@@ -14,5 +14,11 @@ namespace mcxNOW
         public decimal Incoming { get; set; }
 
         public string DepositAddress { get; set; }
+
+        public decimal MinimumDeposit { get; set; }
+
+        public int DepositConfirmations { get; set; }
+
+        public decimal WithdrawFee { get; set; }
     }
 }
