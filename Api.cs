@@ -67,8 +67,8 @@ namespace mcxNOW
 
             request.AddParameter("cur", trade.Currency.Code);
             request.AddParameter("sk", secretKey);
-            request.AddParameter("amt", trade.Amount);
-            request.AddParameter("price", trade.Price);
+            request.AddParameter("amt", trade.Amount.ToString(CultureInfo.InvariantCulture));
+            request.AddParameter("price", trade.Price.ToString(CultureInfo.InvariantCulture));
             request.AddParameter("buy", trade.Type == Trade.Types.BUY ? 1 : 0);
             request.AddParameter("enabled", trade.Execute ? 1 : 0);
 
@@ -194,7 +194,7 @@ namespace mcxNOW
             RestRequest request = Post("withdraw.html", true);
 
             request.AddParameter("cur", currency.Code);
-            request.AddParameter("amount", amount);
+            request.AddParameter("amount", amount.ToString(CultureInfo.InvariantCulture));
             request.AddParameter("address", address);
             request.AddParameter("password", Password(password));
 
