@@ -19,6 +19,7 @@ namespace mcxNOW
         public static readonly Currency LTC = new Currency(2, "LTC", "Litecoin");
         public static readonly Currency SC = new Currency(3, "SC", "SolidCoin");
         public static readonly Currency DVC = new Currency(4, "DVC", "Devcoin");
+        public static readonly Currency WDC = new Currency(4, "WDC", "WorldCoin");
         public static readonly Currency BTC = new Currency(5, "BTC", "Bitcoin");
 
         /**
@@ -31,7 +32,8 @@ namespace mcxNOW
                 MNC,
                 LTC,
                 SC,
-                DVC
+                DVC,
+                WDC,
             };
         }
 
@@ -43,7 +45,8 @@ namespace mcxNOW
                 MNC,
                 LTC,
                 SC,
-                DVC
+                DVC,
+                WDC,
             };
         }
 
