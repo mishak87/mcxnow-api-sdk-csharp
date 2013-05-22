@@ -56,7 +56,9 @@ namespace mcxNOW
             request.AddParameter("cur", currency.Code);
 
             return Execute<Info>(request);
-        }
+        }
+
+
 
         public void ExecuteTrade(Trade trade)
         {
@@ -99,8 +101,8 @@ namespace mcxNOW
 
             Execute(request);
         }
-        
-        
+
+
 
         public ChatResponse Chat()
         {
