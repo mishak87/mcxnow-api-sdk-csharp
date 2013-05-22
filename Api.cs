@@ -333,16 +333,34 @@ namespace mcxNOW
             }
 
             if (response.ResponseStatus == ResponseStatus.Completed
-                && response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                && (response.StatusCode == System.Net.HttpStatusCode.Unauthorized
+                    || response.StatusCode == System.Net.HttpStatusCode.BadGateway))
             {
-                throw new UnauthorizedAccessException();
+                throw new mcxNOW.UnauthorizedAccessException();
+            }
+
+            if (response.ResponseStatus == ResponseStatus.Completed
+                && response.StatusCode == System.Net.HttpStatusCode.GatewayTimeout)
+            {
+                throw new ServerIsUnavailable();
+            }
+
+            string notLoggedIn = "<h1>You are not currently logged in.</h1>";
+            if (response.ResponseStatus == ResponseStatus.Completed
+                && response.StatusCode == System.Net.HttpStatusCode.OK
+                && response.ContentType.IndexOf("text/html") == 0
+                && response.Content.IndexOf(notLoggedIn) >= 0)
+            {
+                throw new mcxNOW.UnauthorizedAccessException();
             }
         }
     }
 
-    public class NotAuthorized : Exception { }
+    public class UnauthorizedAccessException : System.UnauthorizedAccessException { }
 
     public class AuthenticationFailed : Exception { }
 
     public class ConnectionErrorException : Exception { }
+
+    public class ServerIsUnavailable : Exception { }
 }
