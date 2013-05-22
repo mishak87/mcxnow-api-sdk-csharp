@@ -35,6 +35,7 @@ Donations
 
 Since I spent several days developing and testing this kit I would appreciate any donations.
 
+* DVC: 12bFUNZrhfjKYyxEGd6prPfjPEP6xspmeH *The moral one.*
 * MNC: MVPueLQkfEuPSgtHVDnU5EVxC3CdyUC7vv *We all love this coin.*
 * BTC: 13QxaR9LrKmdDox14psjdgtGse86rhj7PU
 * LTC: LdTw1iCyFVZBy2Z7fpf7K9TwNR7R1szdAC
