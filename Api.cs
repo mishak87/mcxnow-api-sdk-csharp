@@ -1,4 +1,7 @@
-﻿using HtmlAgilityPack;
+﻿#region license
+//   Please read and agree to license.md contents before using this SDK.
+#endregion
+using HtmlAgilityPack;
 using RestSharp;
 using RestSharp.Deserializers;
 using System;

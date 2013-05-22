@@ -1,4 +1,7 @@
-﻿using System;
+﻿#region license
+//   Please read and agree to license.md contents before using this SDK.
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

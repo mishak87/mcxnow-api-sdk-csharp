@@ -55,6 +55,7 @@
     <Compile Include="XmlDeserializer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="license.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
