@@ -19,8 +19,10 @@ namespace mcxNOW
         public static readonly Currency LTC = new Currency(2, "LTC", "Litecoin");
         public static readonly Currency SC = new Currency(3, "SC", "SolidCoin");
         public static readonly Currency DVC = new Currency(4, "DVC", "Devcoin");
-        public static readonly Currency WDC = new Currency(4, "WDC", "WorldCoin");
-        public static readonly Currency BTC = new Currency(5, "BTC", "Bitcoin");
+        public static readonly Currency WDC = new Currency(5, "WDC", "WorldCoin");
+        public static readonly Currency CL = new Currency(6, "CL", "CopperLark");
+        public static readonly Currency XPM = new Currency(7, "XPM", "PrimeCoin");
+        public static readonly Currency BTC = new Currency(8, "BTC", "Bitcoin");
 
         /**
          * Return list of all currencies except BTC (it is exchange base currency)
@@ -34,6 +36,8 @@ namespace mcxNOW
                 SC,
                 DVC,
                 WDC,
+                CL,
+                XPM
             };
         }
 
@@ -47,6 +51,8 @@ namespace mcxNOW
                 SC,
                 DVC,
                 WDC,
+                CL,
+                XPM
             };
         }
 

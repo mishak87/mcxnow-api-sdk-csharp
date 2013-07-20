@@ -28,6 +28,7 @@ namespace mcxNOW
         public List<Order> orders { get; set; }
     }
 
+
     public class Order
     {
         /**
@@ -36,20 +37,37 @@ namespace mcxNOW
         public string id { get; set; }
 
         /**
+         * buy or sell  
+         * false = sell
+         * true = buy
+         * {ck}
+         */
+        public bool b { get; set; }
+
+        /**
          * Was executed 1 yes 0 no
          */
         public bool e { get; set; }
         
         /**
          * Time order was placed
+         * DateTime not working {ck}
          */
-        public DateTime t { get; set; }
+        public int t { get; set; }
         
         /**
-         * Textual info about order
+         * Volume of the order
+         * {ck}
          */
-        public string i { get; set; }
+        public decimal a1 { get; set; }
 
+        /**
+         * Price of the order
+         * {ck}
+         */
+        public decimal p { get; set; }
+
+        /* Not longer in curent API {ck}
         private OrderInfo orderInfo = null;
 
         public OrderInfo GetOrderInfo()
@@ -60,8 +78,11 @@ namespace mcxNOW
             }
             return orderInfo;
         }
+         */
     }
 
+    /* Not longer in curent API {ck}
+ 
     public class OrderInfo
     {
         public enum Types {
@@ -77,7 +98,8 @@ namespace mcxNOW
 
         public decimal Price { get; private set; }
 
-        public DateTime DateTime { get; private set; }
+        
+        public string DateTime { get; private set; }
 
         public static OrderInfo FromOrder(Order order)
         {
@@ -85,10 +107,10 @@ namespace mcxNOW
             // "Sell (20.0)(MNC) for (0.002928)BTC each"
             Regex buyRegex = new Regex(@"^Buy (?<currency>[A-Za-z]+) with (?<amount>[0-9]+(\.[0-9]+)?)BTC for (?<price>[0-9]+(\.[0-9]+)?)BTC each$", RegexOptions.Singleline);
             Regex sellRegex = new Regex(@"^Sell (?<amount>[0-9]+(\.[0-9]+)?)(?<currency>[A-Za-z]{2,3}) for (?<price>[0-9]+(\.[0-9]+)?)BTC each$", RegexOptions.Singleline);
-            Match match = buyRegex.Match(order.i);
+            Match match = buyRegex.Match(order.a1);
             if (!match.Success)
             {
-                match = sellRegex.Match(order.i);
+                match = sellRegex.Match(order.a1);
             }
 
             if (!match.Success)
@@ -105,4 +127,6 @@ namespace mcxNOW
             };
         }
     }
+
+    */
 }
