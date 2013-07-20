@@ -22,14 +22,19 @@ namespace mcxNOW
         public decimal lprice { get; set; }
         public decimal pricel { get; set; }
         public decimal priceh { get; set; }
-    }
+        public List<TabPrice> tabprice { get; set; }
+        public decimal height { get; set; }
+        public decimal hashrate { get; set; }
+        public decimal buyvol { get; set; }
+        public decimal sellvol { get; set; }
+   }
 
     public class GroupedOrder
     {
         /**
          * Last one is total text therefore string
          */
-        public string p { get; set; }
+        public decimal p { get; set; }
         public decimal c1 { get; set; }
         public decimal c2 { get; set; }
     }
@@ -37,15 +42,21 @@ namespace mcxNOW
     public class Volume
     {
         public decimal p { get; set; }
-        public decimal a { get; set; }
+        public decimal a1 { get; set; }
+        public decimal a2 { get; set; }
     }
 
     public class History
     {
-        public DateTime t { get; set; }
+        public string t { get; set; }
         public bool b { get; set; }
         public decimal p { get; set; }
         public decimal c1 { get; set; }
         public decimal c2 { get; set; }
+    }
+
+    public class TabPrice
+    {
+        public decimal p { get; set; }
     }
 }

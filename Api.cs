@@ -34,16 +34,22 @@ namespace mcxNOW
         public Api(string baseUrl)
         {
             this.baseUrl = baseUrl;
+
+            /*
+             * Ignore certificate errors
+             * {ck}
+             */           
+            ServicePointManager.ServerCertificateValidationCallback +=
+                   (sender, certificate, chain, sslPolicyErrors) => true;
         }
 
 
 
         public Orders Orders(Currency currency)
         {
-            RestRequest request = Get("orders");
+            RestRequest request = Get("orders", true);
 
             request.AddParameter("cur", currency.Code);
-
             return Execute<Orders>(request);
         }
 
